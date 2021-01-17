@@ -1,0 +1,35 @@
+.Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1C1A19;
+    height: 6.375rem;
+}
+
+.Header__logo {
+    width: 16.8125rem;
+    height: 3.8125rem;
+    margin-left: 1.6875rem;
+}
+
+.Header__menu {
+    display: flex;
+    flex-direction: row;
+    width: 18.375rem;
+    justify-content: space-between;
+    margin-right: 3.125rem;
+}
+
+.Header__menu-button {
+    border: none;
+    background: transparent;
+    font-size: 1.31125rem;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.3s;
+}
+
+.Header__menu-button:hover, .Header__menu-button--active {
+    color: #FDBF5A;
+}
