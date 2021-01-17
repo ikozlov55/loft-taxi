@@ -32,7 +32,7 @@ class RegistrationForm extends React.Component {
                 <h2 className='form__header'>Регистрация</h2>
                 <form onSubmit={this.handleSubmit}>
                     <Input
-                        type='text'
+                        type='email'
                         id='email'
                         placeholder='mail@mail.ru'
                         label='Email*'

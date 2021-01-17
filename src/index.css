@@ -65,6 +65,10 @@ ul {
     color: #828282;
 }
 
+.form__link--gray:hover {
+    color: #4e4c4c;
+}
+
 .form__header {
     font-size: 1.875rem;
     margin-bottom: 3.5rem;    

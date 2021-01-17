@@ -1,9 +1,9 @@
 import React from 'react';
-import OrderForm from '../order/OrderForm';
-import ProfileForm from '../profile/ProfileForm';
-import Header from './header/Header';
+import OrderForm from './order/OrderForm';
+import ProfileForm from './profile/ProfileForm';
+import Header from './map/header/Header';
 
-class Map extends React.Component {
+class MapPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,4 +41,4 @@ class Map extends React.Component {
     }
 }
 
-export default Map;
+export default MapPage;

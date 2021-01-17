@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from './main/map/Map';
+import MapPage from './main/MapPage';
 import PublicPage from './public/PublicPage';
 
 class App extends React.Component {
@@ -22,7 +22,7 @@ class App extends React.Component {
 
     render() {
         if (this.state.isAuthorized) {
-            return <Map onLogoutClick={this.logout}></Map>;
+            return <MapPage onLogoutClick={this.logout}></MapPage>;
         } else {
             return <PublicPage onLogin={this.login}></PublicPage>;
         }
