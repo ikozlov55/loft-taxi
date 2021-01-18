@@ -9,21 +9,14 @@ class PublicPage extends React.Component {
         this.state = {
             form: 'login',
         };
-        this.renderForm = this.renderForm.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleRegistration = this.handleRegistration.bind(this);
     }
 
     handleLogin(email, password) {
-        API.login(email, password).then(
-            () => {
-                console.log(`Logged in as ${email} ${password}`);
-                this.props.onLogin();
-            },
-            () => {
-                console.log('Authorization error!');
-            }
-        );
+        API.login(email, password).then(() => {
+            this.props.onLogin();
+        });
     }
 
     handleRegistration(email, name, password) {
@@ -33,29 +26,26 @@ class PublicPage extends React.Component {
         });
     }
 
-    renderForm(type) {
-        switch (type) {
-            case 'registration':
-                return (
-                    <RegistrationForm
-                        onLoginClick={() => this.setState({ form: 'login' })}
-                        onSubmit={this.handleRegistration}
-                    ></RegistrationForm>
-                );
-            default:
-                return (
-                    <LoginForm
-                        onRegisterClick={() =>
-                            this.setState({ form: 'registration' })
-                        }
-                        onSubmit={this.handleLogin}
-                    ></LoginForm>
-                );
-        }
-    }
-
     render() {
-        return <div>{this.renderForm(this.state.form)}</div>;
+        if (this.state.form === 'login') {
+            return (
+                <LoginForm
+                    onRegisterClick={() =>
+                        this.setState({ form: 'registration' })
+                    }
+                    onSubmit={this.handleLogin}
+                ></LoginForm>
+            );
+        } else if (this.state.form === 'registration') {
+            return (
+                <RegistrationForm
+                    onLoginClick={() => this.setState({ form: 'login' })}
+                    onSubmit={this.handleRegistration}
+                ></RegistrationForm>
+            );
+        } else {
+            return null;
+        }
     }
 }
 

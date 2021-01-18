@@ -9,7 +9,6 @@ class Header extends React.Component {
             activeButton: 'order',
         };
         this.setButtonClassname = this.setButtonClassname.bind(this);
-        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
     setButtonClassname(buttonName) {
@@ -20,13 +19,6 @@ class Header extends React.Component {
         }`;
     }
 
-    handleButtonClick(event) {
-        const name = event.target.dataset.route;
-        this.setState({ activeButton: name });
-        const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
-        this.props[`on${nameCapitalized}ButtonClicked`]();
-    }
-
     render() {
         return (
             <header className='Header'>
@@ -34,18 +26,16 @@ class Header extends React.Component {
                 <ul className='Header__menu'>
                     <li className='Header__menu-item'>
                         <button
-                            data-route='order'
                             className={this.setButtonClassname('order')}
-                            onClick={this.handleButtonClick}
+                            onClick={() => this.props.onButtonClick('order')}
                         >
                             Карта
                         </button>
                     </li>
                     <li className='Header__menu-item'>
                         <button
-                            data-route='profile'
                             className={this.setButtonClassname('profile')}
-                            onClick={this.handleButtonClick}
+                            onClick={() => this.props.onButtonClick('profile')}
                         >
                             Профиль
                         </button>

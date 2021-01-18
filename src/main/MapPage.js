@@ -1,7 +1,7 @@
 import React from 'react';
 import OrderForm from './order/OrderForm';
 import ProfileForm from './profile/ProfileForm';
-import Header from './map/header/Header';
+import Header from './header/Header';
 
 class MapPage extends React.Component {
     constructor(props) {
@@ -10,6 +10,7 @@ class MapPage extends React.Component {
             form: 'order',
         };
         this.renderForm = this.renderForm.bind(this);
+        this.onHeaderButtonClick = this.onHeaderButtonClick.bind(this);
     }
 
     renderForm(type) {
@@ -23,16 +24,15 @@ class MapPage extends React.Component {
         }
     }
 
+    onHeaderButtonClick(buttonName) {
+        this.setState({ form: buttonName });
+    }
+
     render() {
         return (
             <div>
                 <Header
-                    onOrderButtonClicked={() => {
-                        this.setState({ form: 'order' });
-                    }}
-                    onProfileButtonClicked={() => {
-                        this.setState({ form: 'profile' });
-                    }}
+                    onButtonClick={this.onHeaderButtonClick}
                     onLogutButtonClicked={this.props.onLogoutClick}
                 ></Header>
                 {this.renderForm(this.state.form)}
