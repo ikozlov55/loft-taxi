@@ -1,0 +1,24 @@
+.Input {
+    display: flex;
+    flex-direction: column;
+}
+
+.Input label {
+    font-weight: bold;
+    margin-bottom: 0.625rem;
+}
+
+.Input input {
+    border: none;
+    border-bottom: 2px solid #E4E4E4;
+    outline: none;
+    height: 2rem;
+}
+
+.Input:hover input {
+    border-color: black;
+}
+
+.Input input::placeholder {
+    font-size: 1.125rem;
+}

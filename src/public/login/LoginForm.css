@@ -1,0 +1,13 @@
+.LoginForm {
+    width: 36.25rem;
+    height: 33.75rem;
+}
+
+.LoginForm  .form__link--gray {
+    align-self: flex-end;
+    margin-top: 0.8125rem;
+}
+
+.LoginForm .Button {
+    margin: 2.875rem 0 2rem 0;
+}
