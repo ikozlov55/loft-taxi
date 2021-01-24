@@ -1,31 +1,41 @@
 import React from 'react';
-import MapPage from './main/MapPage';
+import MainPage from './main/MainPage';
 import PublicPage from './public/PublicPage';
+import AuthContext from './AuthContext';
+import API from './services/API';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAuthorized: false,
+            isLoggedIn: false,
         };
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
     }
 
-    login() {
-        this.setState({ isAuthorized: true });
+    login(email, password) {
+        API.login(email, password).then(() => {
+            this.setState({ isLoggedIn: true });
+        });
     }
 
     logout() {
-        this.setState({ isAuthorized: false });
+        this.setState({ isLoggedIn: false });
     }
 
     render() {
-        if (this.state.isAuthorized) {
-            return <MapPage onLogoutClick={this.logout}></MapPage>;
-        } else {
-            return <PublicPage onLogin={this.login}></PublicPage>;
-        }
+        return (
+            <AuthContext.Provider
+                value={{
+                    isLoggedIn: this.state.isLoggedIn,
+                    login: this.login,
+                    logout: this.logout,
+                }}
+            >
+                {this.state.isLoggedIn ? <MainPage /> : <PublicPage />}
+            </AuthContext.Provider>
+        );
     }
 }
 

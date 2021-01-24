@@ -2,6 +2,8 @@ import React from 'react';
 import LoginForm from './login/LoginForm';
 import RegistrationForm from './registration/RegistrationForm';
 import API from '../services/API';
+import logo from './logo.png';
+import './PublicPage.css';
 
 class PublicPage extends React.Component {
     constructor(props) {
@@ -9,31 +11,23 @@ class PublicPage extends React.Component {
         this.state = {
             form: 'login',
         };
-        this.handleLogin = this.handleLogin.bind(this);
         this.handleRegistration = this.handleRegistration.bind(this);
-    }
-
-    handleLogin(email, password) {
-        API.login(email, password).then(() => {
-            this.props.onLogin();
-        });
+        this.renderForm = this.renderForm.bind(this);
     }
 
     handleRegistration(email, name, password) {
         API.register(email, name, password).then(() => {
-            console.log(`Registered as ${email} ${name} ${password}`);
             this.setState({ form: 'login' });
         });
     }
 
-    render() {
+    renderForm() {
         if (this.state.form === 'login') {
             return (
                 <LoginForm
                     onRegisterClick={() =>
                         this.setState({ form: 'registration' })
                     }
-                    onSubmit={this.handleLogin}
                 ></LoginForm>
             );
         } else if (this.state.form === 'registration') {
@@ -46,6 +40,20 @@ class PublicPage extends React.Component {
         } else {
             return null;
         }
+    }
+    render() {
+        return (
+            <div className='PublicPage'>
+                <div className='PublicPage__logo-col'>
+                    <img
+                        className='PublicPage__logo'
+                        src={logo}
+                        alt='Loft Taxi'
+                    />
+                </div>
+                <div className='PublicPage__form-col'>{this.renderForm()}</div>
+            </div>
+        );
     }
 }
 
