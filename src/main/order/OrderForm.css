@@ -1,0 +1,10 @@
+.OrderForm {
+    position: absolute;
+    top: 10.175rem;
+    left: 3.8rem;
+    width: 30.375rem;
+    height: 29.4375rem;
+    z-index: 1;
+    background: white;
+    border-radius: 5px;
+}
