@@ -39,7 +39,7 @@ class MapPage extends React.Component {
 
     render() {
         return (
-            <div className='MainPage'>
+            <div className='MainPage' data-testid='MainPage:container'>
                 <Header
                     onButtonClick={this.onHeaderButtonClick}
                     activeButton={this.state.form}

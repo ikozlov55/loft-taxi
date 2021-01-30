@@ -1,18 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../../common/input/Input';
 import Button from '../../common/button/Button';
-import AuthContext from '../../AuthContext';
+import { withAuth } from '../../AuthContext';
 import './LoginForm.css';
 
 const LoginForm = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const context = useContext(AuthContext);
 
     function handleSubmit(event) {
         event.preventDefault();
-        context.login(email, password);
+        props.login(email, password);
     }
 
     return (
@@ -54,6 +53,7 @@ const LoginForm = (props) => {
 
 LoginForm.propTypes = {
     onRegisterClick: PropTypes.func,
+    login: PropTypes.func,
 };
 
-export default LoginForm;
+export default withAuth(LoginForm);

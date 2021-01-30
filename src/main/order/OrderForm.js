@@ -5,7 +5,7 @@ class OrderForm extends React.Component {
     render() {
         return (
             <div className='OrderForm'>
-                <h2>Заказ</h2>
+                <h2 data-testid='OrderForm:header'>Заказ</h2>
             </div>
         );
     }

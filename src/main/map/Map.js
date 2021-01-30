@@ -29,11 +29,7 @@ class Map extends React.Component {
     }
 
     render() {
-        return (
-            <div id='map' className='Map'>
-                {this.props.children}
-            </div>
-        );
+        return <div id='map' className='Map' data-testid='Map:div'></div>;
     }
 }
 

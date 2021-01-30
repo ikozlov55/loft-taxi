@@ -1,6 +1,5 @@
 import React from 'react';
 import LoginForm from '../public/login/LoginForm';
-import AuthContext from '../AuthContext';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -15,15 +14,11 @@ describe('LoginForm', () => {
         expect(onRegisterClick).toHaveBeenCalled();
     });
 
-    test('fires login function with email and password from context on submit', () => {
-        const onSubmit = jest.fn();
+    test('fires login callback with email and password on submit', () => {
+        const login = jest.fn();
         const email = 'admin@mail.ru';
         const password = '123456';
-        render(
-            <AuthContext.Provider value={{ login: onSubmit }}>
-                <LoginForm></LoginForm>
-            </AuthContext.Provider>
-        );
+        render(<LoginForm login={login}></LoginForm>);
         const [emailInput, passwordInput] = screen.getAllByTestId(
             'Input:input'
         );
@@ -33,6 +28,6 @@ describe('LoginForm', () => {
         userEvent.type(passwordInput, password);
         userEvent.click(loginButton);
 
-        expect(onSubmit).toHaveBeenCalledWith(email, password);
+        expect(login).toHaveBeenCalledWith(email, password);
     });
 });

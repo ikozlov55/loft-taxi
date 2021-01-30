@@ -5,7 +5,7 @@ class ProfileForm extends React.Component {
     render() {
         return (
             <div className='ProfileForm'>
-                <h2>Профиль</h2>
+                <h2 data-testid='ProfileForm:header'>Профиль</h2>
             </div>
         );
     }

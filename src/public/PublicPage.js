@@ -43,7 +43,7 @@ class PublicPage extends React.Component {
     }
     render() {
         return (
-            <div className='PublicPage'>
+            <div className='PublicPage' data-testid='PublicPage:container'>
                 <div className='PublicPage__logo-col'>
                     <img
                         className='PublicPage__logo'
