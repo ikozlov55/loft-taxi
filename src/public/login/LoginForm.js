@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import Input from '../../common/input/Input';
 import Button from '../../common/button/Button';
-import { withAuth } from '../../AuthContext';
+import { Link } from 'react-router-dom';
+import { login } from '../../redux/modules/auth';
+import { useDispatch } from 'react-redux';
+
 import './LoginForm.css';
 
 const LoginForm = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     function handleSubmit(event) {
         event.preventDefault();
-        props.login(email, password);
+        console.log(email, password);
+        dispatch(login());
+        //login(email, password);
     }
 
     return (
@@ -39,21 +44,16 @@ const LoginForm = (props) => {
             </form>
             <div className='form__text-block'>
                 Новый пользователь?
-                <a
+                <Link
+                    to='/registration'
                     className='form__link'
-                    onClick={props.onRegisterClick}
                     data-testid='LoginForm:register-link'
                 >
                     Регистрация
-                </a>
+                </Link>
             </div>
         </div>
     );
 };
 
-LoginForm.propTypes = {
-    onRegisterClick: PropTypes.func,
-    login: PropTypes.func,
-};
-
-export default withAuth(LoginForm);
+export default LoginForm;

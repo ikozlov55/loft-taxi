@@ -3,17 +3,14 @@ import OrderForm from './order/OrderForm';
 import ProfileForm from './profile/ProfileForm';
 import Header from './header/Header';
 import Map from './map/Map';
+import { Switch, Redirect } from 'react-router-dom';
+import PrivateRoute from '../PrivateRoute';
 import './MainPage.css';
 
-class MapPage extends React.Component {
+class MainPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            form: 'order',
-        };
         this.mapRef = React.createRef();
-        this.renderForm = this.renderForm.bind(this);
-        this.onHeaderButtonClick = this.onHeaderButtonClick.bind(this);
     }
 
     componentDidMount() {
@@ -22,33 +19,25 @@ class MapPage extends React.Component {
         };
     }
 
-    renderForm(type) {
-        switch (type) {
-            case 'order':
-                return <OrderForm></OrderForm>;
-            case 'profile':
-                return <ProfileForm></ProfileForm>;
-            default:
-                return <OrderForm></OrderForm>;
-        }
-    }
-
-    onHeaderButtonClick(buttonName) {
-        this.setState({ form: buttonName });
-    }
-
     render() {
         return (
             <div className='MainPage' data-testid='MainPage:container'>
-                <Header
-                    onButtonClick={this.onHeaderButtonClick}
-                    activeButton={this.state.form}
-                ></Header>
-                {this.renderForm(this.state.form)}
+                <Header />
                 <Map ref={this.mapRef}></Map>
+                <Switch>
+                    <PrivateRoute path='/main/order'>
+                        <OrderForm />
+                    </PrivateRoute>
+                    <PrivateRoute path='/main/profile'>
+                        <ProfileForm />
+                    </PrivateRoute>
+                    <PrivateRoute path='/'>
+                        <Redirect to='/main/order' />
+                    </PrivateRoute>
+                </Switch>
             </div>
         );
     }
 }
 
-export default MapPage;
+export default MainPage;

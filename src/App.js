@@ -1,19 +1,18 @@
 import React from 'react';
 import MainPage from './main/MainPage';
-import { withAuth } from './AuthContext';
 import PublicPage from './public/PublicPage';
-import PropTypes from 'prop-types';
+import { BrowserRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from './redux/modules/auth';
 
-const App = (props) => {
-    if (props.isLoggedIn) {
-        return <MainPage />;
-    } else {
-        return <PublicPage />;
-    }
+const App = () => {
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+
+    return (
+        <BrowserRouter>
+            {isLoggedIn ? <MainPage /> : <PublicPage />}
+        </BrowserRouter>
+    );
 };
 
-App.propTypes = {
-    isLoggedIn: PropTypes.bool,
-};
-
-export default withAuth(App);
+export default App;

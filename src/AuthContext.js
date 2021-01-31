@@ -6,10 +6,12 @@ AuthContext.displayName = 'AuthContext';
 
 const AuthContextProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [token, setToken] = useState(null);
 
     function login(email, password) {
-        API.login(email, password).then(() => {
+        API.auth(email, password).then((token) => {
             setIsLoggedIn(true);
+            setToken(token);
         });
     }
 
