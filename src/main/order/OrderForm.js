@@ -1,10 +1,11 @@
 import React from 'react';
+import './OrderForm.css';
 
 class OrderForm extends React.Component {
     render() {
         return (
-            <div>
-                <h2>Заказ</h2>
+            <div className='OrderForm'>
+                <h2 data-testid='OrderForm:header'>Заказ</h2>
             </div>
         );
     }

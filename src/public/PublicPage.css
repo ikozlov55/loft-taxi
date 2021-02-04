@@ -1,0 +1,26 @@
+.PublicPage {
+    display: flex;
+    height: 100%;
+}
+
+.PublicPage__logo-col {
+    background: #1C1A19;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+}
+
+.PublicPage__logo {
+    width: 10rem;
+    height: 11.25rem;
+    object-fit: contain;
+}
+
+.PublicPage__form-col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: center / cover no-repeat url('./background.jpeg');
+}

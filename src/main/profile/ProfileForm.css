@@ -1,0 +1,11 @@
+.ProfileForm {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45.5rem;
+    height: 26.7rem;
+    z-index: 1;
+    background: white;
+    border-radius: 5px;
+}

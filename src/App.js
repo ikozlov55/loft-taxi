@@ -1,32 +1,19 @@
 import React from 'react';
-import MapPage from './main/MapPage';
+import MainPage from './main/MainPage';
+import { withAuth } from './AuthContext';
 import PublicPage from './public/PublicPage';
+import PropTypes from 'prop-types';
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isAuthorized: false,
-        };
-        this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
+const App = (props) => {
+    if (props.isLoggedIn) {
+        return <MainPage />;
+    } else {
+        return <PublicPage />;
     }
+};
 
-    login() {
-        this.setState({ isAuthorized: true });
-    }
+App.propTypes = {
+    isLoggedIn: PropTypes.bool,
+};
 
-    logout() {
-        this.setState({ isAuthorized: false });
-    }
-
-    render() {
-        if (this.state.isAuthorized) {
-            return <MapPage onLogoutClick={this.logout}></MapPage>;
-        } else {
-            return <PublicPage onLogin={this.login}></PublicPage>;
-        }
-    }
-}
-
-export default App;
+export default withAuth(App);

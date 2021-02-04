@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './Button.css';
 
 const Button = (props) => {
     return (
         <button
             className={`Button ${props.disabled ? 'Button--disabled' : ''}`}
+            disabled={props.disabled}
+            data-testid='Button:button'
         >
             {props.text}
         </button>
     );
+};
+
+Button.propTypes = {
+    disabled: PropTypes.bool,
+    text: PropTypes.string,
 };
 
 export default Button;
