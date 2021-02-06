@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../../common/input/Input';
 import Button from '../../common/button/Button';
 import { Link } from 'react-router-dom';
-import { login } from '../../redux/modules/auth';
+import { authorize } from '../../redux/modules/auth';
 import { useDispatch } from 'react-redux';
 
 import './LoginForm.css';
@@ -14,9 +14,7 @@ const LoginForm = (props) => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(email, password);
-        dispatch(login());
-        //login(email, password);
+        dispatch(authorize(email, password));
     }
 
     return (

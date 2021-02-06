@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { AuthContextProvider, AuthContext } from '../AuthContext';
+import { AuthContextProvider, AuthContext } from '../../AuthContext';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';

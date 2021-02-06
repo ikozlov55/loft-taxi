@@ -1,0 +1,23 @@
+.CreditCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 19.5875rem;
+    height: 11.375rem;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.CreditCard__row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.CreditCard__expires {
+    font-size: 0.75rem;
+}
+
+.CreditCard__number {
+    font-size: 1.3125rem;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '../common/input/Input';
+import Input from '../../common/input/Input';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';

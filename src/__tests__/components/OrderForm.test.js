@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderForm from '../main/order/OrderForm';
+import OrderForm from '../../main/order/OrderForm';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 

@@ -1,9 +1,23 @@
-import { createStore } from 'redux';
-import auth from './modules/auth';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import reducer from './modules/reducer';
+import authorizeMiddleware from './middleware/authMiddleware';
+import getCardMiddleware from './middleware/cardMiddleware';
+import localStorageMiddleware from './middleware/localStorageMiddleware';
+import localStorageService from '../services/localStorageService';
+
+const middlewares = [
+    authorizeMiddleware,
+    getCardMiddleware,
+    localStorageMiddleware,
+];
+
+const preloadedState = localStorageService.getState() || undefined;
 
 const store = createStore(
-    auth,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    reducer,
+    preloadedState,
+    composeWithDevTools(applyMiddleware(...middlewares))
 );
 
 export default store;

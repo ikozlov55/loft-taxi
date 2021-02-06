@@ -32,7 +32,7 @@ class MainPage extends React.Component {
                         <ProfileForm />
                     </PrivateRoute>
                     <PrivateRoute path='/'>
-                        <Redirect to='/main/order' />
+                        <Redirect to='/main/profile' />
                     </PrivateRoute>
                 </Switch>
             </div>

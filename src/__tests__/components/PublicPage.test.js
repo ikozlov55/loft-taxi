@@ -1,5 +1,5 @@
 import React from 'react';
-import PublicPage from '../public/PublicPage';
+import PublicPage from '../../public/PublicPage';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
