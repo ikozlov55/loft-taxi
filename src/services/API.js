@@ -65,5 +65,25 @@ class API {
             (resolve, result) => resolve(result)
         );
     }
+
+    static getAddressList() {
+        const request = RequestBuilder.getAddressList();
+
+        return fetchRequest(
+            request,
+            (result) => result.addresses,
+            (resolve, result) => resolve(result.addresses)
+        );
+    }
+
+    static getRoute(from, to) {
+        const request = RequestBuilder.getRoute(from, to);
+
+        return fetchRequest(
+            request,
+            (result) => Array.isArray(result) && result.length > 0,
+            (resolve, coordinates) => resolve(coordinates)
+        );
+    }
 }
 export default API;

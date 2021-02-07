@@ -1,0 +1,24 @@
+.OrderFormContent {
+    display: flex;
+    flex-direction: column;
+    width: 30.375rem;
+    height: 16.75rem;
+    padding: 2rem;
+} 
+
+.OrderFormContent h2 {
+    margin-bottom: 1rem;
+}
+
+.OrderFormContent p {
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.OrderFormContent .Button {
+    width: 80%;
+}
+
+.OrderFormContent a {
+    text-align: center;
+}

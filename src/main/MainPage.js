@@ -13,12 +13,6 @@ class MainPage extends React.Component {
         this.mapRef = React.createRef();
     }
 
-    componentDidMount() {
-        this.mapRef.current.onClick = (point) => {
-            this.mapRef.current.addMarker(point);
-        };
-    }
-
     render() {
         return (
             <div className='MainPage' data-testid='MainPage:container'>
@@ -32,7 +26,7 @@ class MainPage extends React.Component {
                         <ProfileForm />
                     </PrivateRoute>
                     <PrivateRoute path='/'>
-                        <Redirect to='/main/profile' />
+                        <Redirect to='/main/order' />
                     </PrivateRoute>
                 </Switch>
             </div>

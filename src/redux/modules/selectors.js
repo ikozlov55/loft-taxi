@@ -13,3 +13,11 @@ export function selectIsCardAdded(state) {
 export function selectCardData(state) {
     return state.card.data;
 }
+
+export function selectAddresses(state) {
+    return state.addressList.addresses;
+}
+
+export function selectCoordinates(state) {
+    return state.route.coordinates;
+}
