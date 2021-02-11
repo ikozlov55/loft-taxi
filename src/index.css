@@ -22,6 +22,10 @@ ul {
     padding: 0;
 }
 
+h1, h2, p {
+    margin: 0;
+}
+
 /*------------ Main ------------*/
 
 #root {
@@ -60,6 +64,7 @@ ul {
 
 .form__text-block {
     color: #828282;
+    font-size: 1.125rem;
 }
 
 .form__link {

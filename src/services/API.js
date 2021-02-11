@@ -1,18 +1,69 @@
+import RequestBuilder from './RequestBuilder';
+
+function fetchRequest(
+    request,
+    validator = (result) => result.success,
+    onSuccess = (resolve, _) => resolve()
+) {
+    return new Promise((resolve, reject) => {
+        fetch(request)
+            .then((response) => response.json())
+            .then((result) => {
+                if (validator(result)) {
+                    onSuccess(resolve, result);
+                } else {
+                    reject(result.error);
+                }
+            })
+            .catch((error) => reject(error));
+    });
+}
+
+function isSuccessAndHasToken(result) {
+    return result.success && result.token;
+}
+
+function resolveWithToken(resolve, result) {
+    resolve(result.token);
+}
+
 class API {
-    static login(email, password) {
-        return new Promise((resolve, reject) => {
-            if (email === 'test@test.com' && password === '123123') {
-                setTimeout(resolve, 1000);
-            } else {
-                setTimeout(reject, 1000);
-            }
-        });
+    static auth(email, password) {
+        const request = RequestBuilder.auth(email, password);
+
+        return fetchRequest(request, isSuccessAndHasToken, resolveWithToken);
     }
 
     static register(email, name, password) {
-        return new Promise((resolve, reject) => {
-            setTimeout(resolve, 1000);
-        });
+        const request = RequestBuilder.register(email, name, password);
+
+        return fetchRequest(request, isSuccessAndHasToken, resolveWithToken);
+    }
+
+    static addCard(cardNumber, expiryDate, cardName, cvc, token) {
+        const request = RequestBuilder.addCard(
+            cardNumber,
+            expiryDate,
+            cardName,
+            cvc,
+            token
+        );
+
+        return fetchRequest(request);
+    }
+
+    static getCard(token) {
+        const request = RequestBuilder.getCard(token);
+
+        return fetchRequest(
+            request,
+            (result) =>
+                result.cardNumber &&
+                result.expiryDate &&
+                result.cardName &&
+                result.cvc,
+            (resolve, result) => resolve(result)
+        );
     }
 }
 export default API;

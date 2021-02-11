@@ -1,19 +1,29 @@
 import React from 'react';
 import MainPage from './main/MainPage';
-import { withAuth } from './AuthContext';
 import PublicPage from './public/PublicPage';
-import PropTypes from 'prop-types';
+import { BrowserRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from './redux/modules/selectors';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-const App = (props) => {
-    if (props.isLoggedIn) {
-        return <MainPage />;
-    } else {
-        return <PublicPage />;
-    }
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#828282',
+        },
+    },
+});
+
+const App = () => {
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+
+    return (
+        <BrowserRouter>
+            <ThemeProvider theme={theme}>
+                {isLoggedIn ? <MainPage /> : <PublicPage />}
+            </ThemeProvider>
+        </BrowserRouter>
+    );
 };
 
-App.propTypes = {
-    isLoggedIn: PropTypes.bool,
-};
-
-export default withAuth(App);
+export default App;

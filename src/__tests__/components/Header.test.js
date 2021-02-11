@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../main/header/Header';
+import Header from '../../main/header/Header';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';

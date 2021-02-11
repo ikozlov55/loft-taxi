@@ -1,14 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withAuth } from '../../AuthContext';
+import { NavLink } from 'react-router-dom';
+import { logout } from '../../redux/modules/auth';
+import { useDispatch } from 'react-redux';
 import './Header.css';
 import logo from './header_logo.png';
 
 const Header = (props) => {
-    function setButtonClassname(button) {
-        return `Header__menu-button ${
-            props.activeButton === button ? 'Header__menu-button--active' : ''
-        }`;
+    const dispatch = useDispatch();
+
+    function handleLogout() {
+        dispatch(logout());
     }
 
     return (
@@ -16,42 +17,38 @@ const Header = (props) => {
             <img src={logo} alt='Loft Taxi' className='Header__logo' />
             <ul className='Header__menu'>
                 <li className='Header__menu-item'>
-                    <button
-                        className={setButtonClassname('order')}
-                        onClick={() => props.onButtonClick('order')}
+                    <NavLink
+                        to='/main/order'
+                        className='Header__menu-button'
+                        activeClassName='Header__menu-button--active'
                         data-testid='Header:order-button'
                     >
                         Карта
-                    </button>
+                    </NavLink>
                 </li>
                 <li className='Header__menu-item'>
-                    <button
-                        className={setButtonClassname('profile')}
-                        onClick={() => props.onButtonClick('profile')}
-                        data-testid='Header:profile-button'
+                    <NavLink
+                        to='/main/profile'
+                        className='Header__menu-button'
+                        activeClassName='Header__menu-button--active'
+                        data-testid='Header:order-button'
                     >
                         Профиль
-                    </button>
+                    </NavLink>
                 </li>
                 <li className='Header__menu-item'>
-                    <button
+                    <NavLink
+                        to='/'
                         className='Header__menu-button'
-                        onClick={props.logout}
+                        onClick={handleLogout}
                         data-testid='Header:logout-button'
                     >
                         Выйти
-                    </button>
-                    )
+                    </NavLink>
                 </li>
             </ul>
         </header>
     );
 };
 
-Header.propTypes = {
-    activeButton: PropTypes.string,
-    onButtonClick: PropTypes.func,
-    logout: PropTypes.func,
-};
-
-export default withAuth(Header);
+export default Header;

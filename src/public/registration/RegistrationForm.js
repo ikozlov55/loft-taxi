@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../../common/input/Input';
 import Button from '../../common/button/Button';
+import { Link } from 'react-router-dom';
 import './RegistrationForm.css';
 
 const RegistrationForm = (props) => {
@@ -45,20 +46,19 @@ const RegistrationForm = (props) => {
             </form>
             <div className='form__text-block'>
                 Уже зарегистрированны?
-                <a
+                <Link
+                    to='/login'
                     className='form__link'
-                    onClick={props.onLoginClick}
                     data-testid='RegistrationForm:login-link'
                 >
                     Войти
-                </a>
+                </Link>
             </div>
         </div>
     );
 };
 
 RegistrationForm.propTypes = {
-    onLoginClick: PropTypes.func,
     onSubmit: PropTypes.func,
 };
 
