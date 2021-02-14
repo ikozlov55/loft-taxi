@@ -1,120 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectAddresses } from '../../../redux/modules/selectors';
-import { getAddressList } from '../../../redux/modules/addressList';
-import Button from '../../../common/button/Button';
+import React from 'react';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import './AddressSelect.css';
-import addressFromAdornment from './address_from_adornment.svg';
-import addressToAdornment from './address_to_adornment.svg';
+import PropTypes from 'prop-types';
 import cross from './cross.svg';
+import './AddressSelect.css';
+
+function renderStartAdornment(props) {
+    if (props.icon) {
+        return (
+            <InputAdornment position='start'>
+                <img src={props.icon} alt=''></img>
+            </InputAdornment>
+        );
+    } else {
+        return null;
+    }
+}
+
+function renderEndAdornment(props) {
+    if (props.onCrossClick) {
+        return (
+            <InputAdornment position='end'>
+                <img
+                    className='AddressSelect__select-cross'
+                    src={cross}
+                    alt=''
+                    onClick={props.onCrossClick}
+                    data-select={props.id}
+                ></img>
+            </InputAdornment>
+        );
+    } else {
+        return null;
+    }
+}
+
+function renderMenuItems(props) {
+    if (props.addressList) {
+        return props.addressList.map((address) => (
+            <MenuItem key={address} value={address}>
+                {address}
+            </MenuItem>
+        ));
+    } else {
+        return null;
+    }
+}
 
 const AddressSelect = (props) => {
-    const addressList = useSelector(selectAddresses);
-    const dispatch = useDispatch();
-    const [addressesFrom, setAddressesFrom] = useState([]);
-    const [addressesTo, setAddressesTo] = useState([]);
-    const [selectedFrom, setSelectedFrom] = useState('');
-    const [selectedTo, setSelectedTo] = useState('');
-    const inputToSetters = {
-        'select-from': [setSelectedFrom, setAddressesTo],
-        'select-to': [setSelectedTo, setAddressesFrom],
-    };
-
-    useEffect(() => {
-        dispatch(getAddressList());
-    }, []);
-
-    function handleChange(event) {
-        const target = event.target;
-        const [setValue, setList] = inputToSetters[target.name];
-        setValue(target.value);
-        setList(addressList.filter((address) => address !== target.value));
-    }
-
-    function handleCrossClick(event) {
-        const target = event.target;
-        const [setValue, setList] = inputToSetters[target.dataset.select];
-        setValue('');
-        setList(addressList);
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        console.log(selectedFrom, selectedTo);
-    }
-
     return (
-        <form className='AddressSelect' onSubmit={handleSubmit}>
-            <div className='AddressSelect__input-container'>
-                <InputLabel id='select-from-label'>Откуда</InputLabel>
-                <Select
-                    className='AddressSelect__select'
-                    name='select-from'
-                    labelId='select-from-label'
-                    onChange={handleChange}
-                    value={selectedFrom}
-                    startAdornment={
-                        <InputAdornment position='start'>
-                            <img src={addressFromAdornment} alt=''></img>
-                        </InputAdornment>
-                    }
-                    endAdornment={
-                        <InputAdornment position='end'>
-                            <img
-                                className='AddressSelect__select-cross'
-                                src={cross}
-                                alt=''
-                                onClick={handleCrossClick}
-                                data-select='select-from'
-                            ></img>
-                        </InputAdornment>
-                    }
-                >
-                    {addressList.map((address) => (
-                        <MenuItem key={address} value={address}>
-                            {address}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <InputLabel id='select-to-label'>Куда</InputLabel>
-                <Select
-                    className='AddressSelect__select'
-                    name='select-to'
-                    labelId='select-to-label'
-                    onChange={handleChange}
-                    value={selectedTo}
-                    startAdornment={
-                        <InputAdornment position='start'>
-                            <img src={addressToAdornment} alt=''></img>
-                        </InputAdornment>
-                    }
-                    endAdornment={
-                        <InputAdornment position='end'>
-                            <img
-                                className='AddressSelect__select-cross'
-                                src={cross}
-                                alt=''
-                                onClick={handleCrossClick}
-                                data-select='select-to'
-                            ></img>
-                        </InputAdornment>
-                    }
-                >
-                    {addressList.map((address) => (
-                        <MenuItem key={address} value={address}>
-                            {address}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </div>
-
-            <Button text='Заказать' disabled={!(selectedFrom && selectedTo)} />
-        </form>
+        <>
+            <InputLabel id={props.id}>{props.labelText}</InputLabel>
+            <Select
+                className='AddressSelect__select'
+                name={props.id}
+                labelId={props.id}
+                onChange={props.onChange}
+                value={props.value}
+                startAdornment={renderStartAdornment(props)}
+                endAdornment={renderEndAdornment(props)}
+            >
+                {renderMenuItems(props)}
+            </Select>
+        </>
     );
+};
+
+AddressSelect.propTypes = {
+    id: PropTypes.string.isRequired,
+    labelText: PropTypes.string,
+    onChange: PropTypes.func,
+    value: PropTypes.string,
+    icon: PropTypes.string,
+    onCrossClick: PropTypes.func,
+    addressList: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default AddressSelect;

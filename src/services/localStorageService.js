@@ -8,6 +8,10 @@ const localStorageService = {
     getState() {
         return JSON.parse(localStorage.getItem(storageKey));
     },
+
+    clear() {
+        localStorage.clear();
+    },
 };
 
 export default localStorageService;

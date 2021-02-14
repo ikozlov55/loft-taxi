@@ -1,16 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectIsCardAdded } from '../../redux/modules/selectors';
-import AddressSelect from './address_select/AddressSelect';
+import { cardSelectors } from '../../redux/modules/card';
+import RouteSelector from './route_selector/RouteSelector';
 import './OrderForm.css';
 import OrderFormContent from './order_form_content/OrderFormContent';
 
 const OrderForm = (props) => {
-    const isCardAdded = useSelector(selectIsCardAdded);
+    const isCardAdded = useSelector(cardSelectors.selectIsCardAdded);
 
-    function renderFormConten() {
+    function renderFormContent() {
         if (isCardAdded) {
-            return <AddressSelect />;
+            return <RouteSelector />;
         } else {
             return (
                 <OrderFormContent
@@ -23,7 +23,7 @@ const OrderForm = (props) => {
         }
     }
 
-    return <div className='OrderForm'>{renderFormConten()}</div>;
+    return <div className='OrderForm'>{renderFormContent()}</div>;
 };
 
 export default OrderForm;

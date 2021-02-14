@@ -1,14 +1,20 @@
-import { LOGIN, LOGOUT } from '../modules/auth';
-import { SAVE_CARD, DELETE_CARD } from '../modules/card';
+import { authTypes } from '../modules/auth';
+import { cardTypes } from '../modules/card';
 import localStorageService from '../../services/localStorageService';
 
-const mutatingActions = [LOGIN, LOGOUT, SAVE_CARD, DELETE_CARD];
+const mutatingActions = [
+    authTypes.LOGIN,
+    cardTypes.SAVE_CARD,
+    cardTypes.DELETE_CARD,
+];
 
 const localStorageMiddleware = ({ _, getState }) => (next) => (action) => {
     if (mutatingActions.includes(action.type)) {
         let result = next(action);
         localStorageService.saveState(getState());
         return result;
+    } else if (action.type === authTypes.LOGOUT) {
+        localStorageService.clear();
     } else {
         next(action);
     }

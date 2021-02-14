@@ -2,19 +2,15 @@ import React, { useState } from 'react';
 import Input from '../../common/input/Input';
 import Button from '../../common/button/Button';
 import { Link } from 'react-router-dom';
-import { authorize } from '../../redux/modules/auth';
-import { useDispatch } from 'react-redux';
-
 import './LoginForm.css';
 
 const LoginForm = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
 
     function handleSubmit(event) {
         event.preventDefault();
-        dispatch(authorize(email, password));
+        props.onSubmit(email, password);
     }
 
     return (
