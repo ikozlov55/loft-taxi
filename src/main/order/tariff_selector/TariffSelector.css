@@ -1,0 +1,8 @@
+.TariffSelector {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.TariffSelector .TariffCard + .TariffCard {
+    margin-left: 1rem;
+}

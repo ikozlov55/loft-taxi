@@ -1,0 +1,22 @@
+.AddressSelect {
+
+}
+
+.AddressSelect__select {
+    height: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.AddressSelect__select-cross {
+    margin-right: 2rem;
+    opacity: 0.4;
+}
+
+.AddressSelect__select-cross:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.AddressSelect__select-cross::after {
+    content: "|";
+}

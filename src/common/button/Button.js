@@ -9,6 +9,7 @@ const Button = (props) => {
             style={{ fontSize: props.fontSize || '1.5rem' }}
             disabled={props.disabled}
             data-testid='Button:button'
+            onClick={props.onClick}
         >
             {props.text}
         </button>
@@ -19,6 +20,7 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     text: PropTypes.string,
     fontSize: PropTypes.string,
+    onClick: PropTypes.func,
 };
 
 export default Button;

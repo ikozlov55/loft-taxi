@@ -1,16 +1,22 @@
 import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import LoginForm from './login/LoginForm';
 import RegistrationForm from './registration/RegistrationForm';
-import API from '../services/API';
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { registraionOperations } from '../redux/modules/registration';
+import { authOperations } from '../redux/modules/auth';
 import logo from './logo.png';
 import './PublicPage.css';
 
 const PublicPage = () => {
-    const history = useHistory();
+    const dispatch = useDispatch();
 
     function handleRegistration(email, name, password) {
-        API.register(email, name, password).then(history.push('/login'));
+        dispatch(registraionOperations.register(email, name, password));
+    }
+
+    function handleLogin(email, password) {
+        dispatch(authOperations.authorize(email, password));
     }
 
     return (
@@ -21,7 +27,7 @@ const PublicPage = () => {
             <div className='PublicPage__form-col'>
                 <Switch>
                     <Route path='/login'>
-                        <LoginForm />
+                        <LoginForm onSubmit={handleLogin} />
                     </Route>
                     <Route path='/registration'>
                         <RegistrationForm onSubmit={handleRegistration} />

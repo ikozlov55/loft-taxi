@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { logout } from '../../redux/modules/auth';
 import { useDispatch } from 'react-redux';
+import { authOperations } from '../../redux/modules/auth';
 import './Header.css';
 import logo from './header_logo.png';
 
@@ -9,7 +9,7 @@ const Header = (props) => {
     const dispatch = useDispatch();
 
     function handleLogout() {
-        dispatch(logout());
+        dispatch(authOperations.logout());
     }
 
     return (

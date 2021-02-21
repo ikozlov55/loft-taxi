@@ -49,6 +49,14 @@ const RequestBuilder = {
             }),
         });
     },
+    getAddressList() {
+        return new Request(API_URLS.addressList.href);
+    },
+    getRoute(from, to) {
+        const url = API_URLS.route;
+        url.search = new URLSearchParams({ address1: from, address2: to });
+        return new Request(url.href);
+    },
 };
 
 export default RequestBuilder;

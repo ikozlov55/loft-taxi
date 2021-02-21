@@ -3,45 +3,27 @@ import Button from '../../common/button/Button';
 import CreditCard from './credit_card/CreditCard';
 import CreditCardForm from './credit_card_form/CreditCardForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCard, addCard } from '../../redux/modules/card';
-import {
-    selectIsCardAdded,
-    selectCardData,
-} from '../../redux/modules/selectors';
+import { cardOperations, cardSelectors } from '../../redux/modules/card';
 import './ProfileForm.css';
 
 const ProfileForm = (props) => {
-    const [cardName, setCardName] = useState('');
-    const [cardNumber, setCardNumber] = useState('');
-    const [expiryDate, setExpiryDate] = useState('');
-    const [cvc, setCvc] = useState('');
+    const isCardAdded = useSelector(cardSelectors.selectIsCardAdded);
+    const cardData = useSelector(cardSelectors.selectCardData);
+    const [card, setCard] = useState(cardData);
     const dispatch = useDispatch();
-    const isCardAdded = useSelector(selectIsCardAdded);
-    const cardData = useSelector(selectCardData);
 
     useEffect(() => {
-        dispatch(getCard());
+        dispatch(cardOperations.getCard());
     }, []);
-
-    const nameToSetter = {
-        cardName: setCardName,
-        cardNumber: setCardNumber,
-        expiryDate: setExpiryDate,
-        cvc: setCvc,
-    };
 
     function handleChange(event) {
         const input = event.target;
-        nameToSetter[input.name](input.value);
+        setCard({ ...card, [input.name]: input.value });
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        dispatch(addCard(cardNumber, expiryDate, cardName, cvc));
-        setCardName('');
-        setCardNumber('');
-        setExpiryDate('');
-        setCvc('');
+        dispatch(cardOperations.addCard(card));
     }
 
     return (
@@ -57,7 +39,7 @@ const ProfileForm = (props) => {
             </p>
             <form onSubmit={handleSubmit}>
                 <div className='ProfileForm__cards-container'>
-                    <CreditCardForm onChange={handleChange} />
+                    <CreditCardForm onChange={handleChange} {...card} />
                     {isCardAdded ? (
                         <CreditCard
                             cardNumber={cardData.cardNumber}

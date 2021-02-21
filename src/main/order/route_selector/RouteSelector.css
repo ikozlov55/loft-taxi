@@ -1,0 +1,8 @@
+.RouteSelector {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 2rem;
+    width: 100%;
+    flex: 1;
+}
