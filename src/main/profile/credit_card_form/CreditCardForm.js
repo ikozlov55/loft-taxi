@@ -12,6 +12,7 @@ const CreditCardForm = (props) => {
                     label='Имя владельца'
                     fullWidth
                     onChange={props.onChange}
+                    value={props.cardName || ''}
                     required
                 />
             </div>
@@ -21,6 +22,7 @@ const CreditCardForm = (props) => {
                     label='Номер карты'
                     fullWidth
                     onChange={props.onChange}
+                    value={props.cardNumber || ''}
                     required
                 />
             </div>
@@ -29,12 +31,14 @@ const CreditCardForm = (props) => {
                     name='expiryDate'
                     label='MM/YY'
                     onChange={props.onChange}
+                    value={props.expiryDate || ''}
                     required
                 />
                 <TextField
                     name='cvc'
                     label='CVC'
                     onChange={props.onChange}
+                    value={props.cvc || ''}
                     required
                 />
             </div>

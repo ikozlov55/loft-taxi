@@ -28,12 +28,14 @@ class Map extends React.Component {
 
     componentDidMount() {
         mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+
         this.map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v10',
             center: [30.314974, 59.934687],
             zoom: 10,
         });
+
         this.map.on('load', () => {
             this.map.addSource(sourceId, {
                 type: 'geojson',

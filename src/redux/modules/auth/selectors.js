@@ -5,4 +5,9 @@ const selectIsLoggedIn = (state) => {
 const selectToken = (state) => {
     return state.auth.token;
 };
-export { selectIsLoggedIn, selectToken };
+
+const selectError = (state) => {
+    return state.auth.error;
+};
+
+export { selectIsLoggedIn, selectToken, selectError };

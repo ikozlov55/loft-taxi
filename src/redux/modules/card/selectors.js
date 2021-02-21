@@ -1,5 +1,5 @@
 const selectIsCardAdded = (state) => {
-    return state.card.isCardAdded;
+    return state.card.isAdded;
 };
 
 const selectCardData = (state) => {

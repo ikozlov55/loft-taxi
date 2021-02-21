@@ -14,7 +14,7 @@ function* registration(action) {
         yield call(API.register, email, name, password);
         yield put(actions.completeRegistration());
     } catch (error) {
-        yield put(action.failRegistration(error));
+        yield put(actions.failRegistration(error));
     }
 }
 

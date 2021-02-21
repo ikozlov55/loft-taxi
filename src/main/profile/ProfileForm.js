@@ -7,14 +7,9 @@ import { cardOperations, cardSelectors } from '../../redux/modules/card';
 import './ProfileForm.css';
 
 const ProfileForm = (props) => {
-    const [card, setCard] = useState({
-        cardName: '',
-        cardNumber: '',
-        expiryDate: '',
-        cvc: '',
-    });
     const isCardAdded = useSelector(cardSelectors.selectIsCardAdded);
     const cardData = useSelector(cardSelectors.selectCardData);
+    const [card, setCard] = useState(cardData);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -28,20 +23,7 @@ const ProfileForm = (props) => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        dispatch(
-            cardOperations.addCard(
-                card.cardNumber,
-                card.expiryDate,
-                card.cardName,
-                card.cvc
-            )
-        );
-        setCard({
-            cardName: '',
-            cardNumber: '',
-            expiryDate: '',
-            cvc: '',
-        });
+        dispatch(cardOperations.addCard(card));
     }
 
     return (
@@ -57,7 +39,7 @@ const ProfileForm = (props) => {
             </p>
             <form onSubmit={handleSubmit}>
                 <div className='ProfileForm__cards-container'>
-                    <CreditCardForm onChange={handleChange} />
+                    <CreditCardForm onChange={handleChange} {...card} />
                     {isCardAdded ? (
                         <CreditCard
                             cardNumber={cardData.cardNumber}

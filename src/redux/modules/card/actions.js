@@ -4,17 +4,17 @@ const getCard = () => {
     return { type: types.GET_CARD };
 };
 
-const addCard = (cardNumber, expiryDate, cardName, cvc) => {
+const addCard = (cardData) => {
     return {
         type: types.ADD_CARD,
-        payload: { cardNumber, expiryDate, cardName, cvc },
+        payload: cardData,
     };
 };
 
-const saveCard = (cardNumber, expiryDate, cardName, cvc) => {
+const saveCard = (cardData) => {
     return {
         type: types.SAVE_CARD,
-        payload: { cardNumber, expiryDate, cardName, cvc },
+        payload: cardData,
     };
 };
 

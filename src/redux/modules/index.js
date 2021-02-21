@@ -11,6 +11,7 @@ import {
     default as registraionReducer,
     registraionOperations,
 } from './registration';
+import { default as orderReducer } from './order';
 
 export function* rootSaga() {
     yield spawn(authOperations.authorizationSaga);
@@ -26,6 +27,7 @@ const reducer = combineReducers({
     addressList: addressListReducer,
     route: routeReducer,
     registraion: registraionReducer,
+    order: orderReducer,
 });
 
 export default reducer;

@@ -14,6 +14,7 @@ const localStorageMiddleware = ({ _, getState }) => (next) => (action) => {
         localStorageService.saveState(getState());
         return result;
     } else if (action.type === authTypes.LOGOUT) {
+        next(action);
         localStorageService.clear();
     } else {
         next(action);

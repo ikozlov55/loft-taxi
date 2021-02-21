@@ -15,11 +15,8 @@ const deleteCard = actions.deleteCard;
 function* fetchCard() {
     try {
         const token = yield select(authSelectors.selectToken);
-        const { cardNumber, expiryDate, cardName, cvc } = yield call(
-            API.getCard,
-            token
-        );
-        yield put(actions.saveCard(cardNumber, expiryDate, cardName, cvc));
+        const cardData = yield call(API.getCard, token);
+        yield put(actions.saveCard(cardData));
     } catch (error) {
         console.log(error);
     }

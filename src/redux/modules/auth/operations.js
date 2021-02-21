@@ -13,7 +13,7 @@ function* auth(action) {
         const token = yield call(API.auth, email, password);
         yield put(actions.login(token));
     } catch (error) {
-        console.log(error);
+        yield put(actions.failAuthorize(error));
     }
 }
 
