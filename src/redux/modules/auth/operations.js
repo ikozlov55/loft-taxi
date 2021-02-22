@@ -3,9 +3,13 @@ import API from '../../../services/API';
 import * as actions from './actions';
 import * as types from './types';
 
+const login = actions.login;
+
 const logout = actions.logout;
 
 const authorize = actions.authorize;
+
+const failAuthorize = actions.failAuthorize;
 
 function* auth(action) {
     try {
@@ -21,4 +25,4 @@ function* authorizationSaga() {
     yield takeLatest(types.AUTHORIZE, auth);
 }
 
-export { logout, authorize, authorizationSaga, auth };
+export { login, logout, authorize, failAuthorize, authorizationSaga, auth };

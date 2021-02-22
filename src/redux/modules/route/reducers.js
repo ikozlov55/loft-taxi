@@ -9,7 +9,7 @@ export default function reducer(state = initialState, action) {
         case types.SET_ROUTE:
             return { ...state, coordinates: action.payload.coordinates };
         case types.DELETE_ROUTE:
-            return { ...state, coordinates: null };
+            return initialState;
         default:
             return state;
     }

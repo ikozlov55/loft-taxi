@@ -10,7 +10,7 @@ export default function reducer(state = initialState, action) {
             return { ...state, error: action.payload.error };
         case types.REGISTRATION:
         case types.REGISTRATION_COMPLETED:
-            return { ...state, error: null };
+            return initialState;
         default:
             return state;
     }

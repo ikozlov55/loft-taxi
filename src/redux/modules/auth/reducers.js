@@ -18,7 +18,7 @@ export default function reducer(state = initialState, action) {
         case types.LOGOUT:
             return initialState;
         case types.AUTHORIZE_FAILED:
-            return { ...state, error: action.payload };
+            return { ...state, error: action.payload.error };
         default:
             return state;
     }
