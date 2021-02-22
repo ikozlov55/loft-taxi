@@ -21,4 +21,4 @@ function* authorizationSaga() {
     yield takeLatest(types.AUTHORIZE, auth);
 }
 
-export { logout, authorize, authorizationSaga };
+export { logout, authorize, authorizationSaga, auth };

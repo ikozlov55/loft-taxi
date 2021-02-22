@@ -27,4 +27,11 @@ function* registrationSaga() {
     yield takeLatest(types.REGISTRATION_COMPLETED, redirectToLoginPage);
 }
 
-export { register, completeRegistration, failRegistration, registrationSaga };
+export {
+    register,
+    completeRegistration,
+    failRegistration,
+    registrationSaga,
+    registration,
+    redirectToLoginPage,
+};

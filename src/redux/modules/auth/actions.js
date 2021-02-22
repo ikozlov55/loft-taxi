@@ -13,7 +13,7 @@ const authorize = (email, password) => {
 };
 
 const failAuthorize = (error) => {
-    return { type: types.AUTHORIZE_FAILED, payload: error };
+    return { type: types.AUTHORIZE_FAILED, payload: { error } };
 };
 
 export { login, logout, authorize, failAuthorize };

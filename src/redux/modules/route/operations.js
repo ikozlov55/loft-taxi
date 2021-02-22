@@ -23,4 +23,4 @@ function* routeSaga() {
     yield takeLatest(types.GET_ROUTE, fetchRoute);
 }
 
-export { getRoute, setRoute, clearRoute, routeSaga };
+export { getRoute, setRoute, clearRoute, routeSaga, fetchRoute };
