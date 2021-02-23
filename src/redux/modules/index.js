@@ -1,6 +1,6 @@
 import { spawn } from 'redux-saga/effects';
 import { combineReducers } from 'redux';
-import { default as authReducer, authOperations } from './auth';
+import { default as authReducer, authOperations, authTypes } from './auth';
 import {
     default as addressListReducer,
     addressListOperations,
@@ -21,7 +21,7 @@ export function* rootSaga() {
     yield spawn(registraionOperations.registrationSaga);
 }
 
-const reducer = combineReducers({
+const appReducer = combineReducers({
     auth: authReducer,
     card: cardReducer,
     addressList: addressListReducer,
@@ -29,5 +29,12 @@ const reducer = combineReducers({
     registration: registrationReducer,
     order: orderReducer,
 });
+
+const reducer = (state, action) => {
+    if (action.type === authTypes.LOGOUT) {
+        state = undefined;
+    }
+    return appReducer(state, action);
+};
 
 export default reducer;
