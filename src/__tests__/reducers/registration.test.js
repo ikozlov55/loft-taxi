@@ -28,7 +28,7 @@ describe('registration reducer', () => {
 
     test('returns initial state on REGISTRATION action', () => {
         const state = reducer(
-            undefined,
+            errorState,
             operations.register('test@mail.ru', 'Владимир Владимиров', '123456')
         );
 
@@ -36,7 +36,7 @@ describe('registration reducer', () => {
     });
 
     test('returns initial state on REGISTRATION_COMPLETED action', () => {
-        const state = reducer(undefined, operations.completeRegistration());
+        const state = reducer(errorState, operations.completeRegistration());
 
         expect(state).toEqual(initialState);
     });

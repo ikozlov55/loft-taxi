@@ -41,7 +41,7 @@ describe('order reducer', () => {
     });
 
     test('returns initial state on DELETE_ORDER action', () => {
-        const state = reducer(undefined, operations.deleteOrder());
+        const state = reducer(testState, operations.deleteOrder());
 
         expect(state).toEqual(initialState);
     });

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import Button from '../../common/button/Button';
 import CreditCard from './credit_card/CreditCard';
 import CreditCardForm from './credit_card_form/CreditCardForm';
-import { useDispatch, useSelector } from 'react-redux';
 import { cardOperations, cardSelectors } from '../../redux/modules/card';
 import './ProfileForm.css';
 
@@ -11,6 +12,7 @@ const ProfileForm = (props) => {
     const cardData = useSelector(cardSelectors.selectCardData);
     const [card, setCard] = useState(cardData);
     const dispatch = useDispatch();
+    const { handleSubmit } = useForm();
 
     useEffect(() => {
         dispatch(cardOperations.getCard());
@@ -21,8 +23,7 @@ const ProfileForm = (props) => {
         setCard({ ...card, [input.name]: input.value });
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    function onSubmit() {
         dispatch(cardOperations.addCard(card));
     }
 
@@ -37,7 +38,7 @@ const ProfileForm = (props) => {
             <p className='form__text-block ProfileForm__text-block'>
                 Введите платёжные данные
             </p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='ProfileForm__cards-container'>
                     <CreditCardForm onChange={handleChange} {...card} />
                     {isCardAdded ? (
@@ -47,7 +48,18 @@ const ProfileForm = (props) => {
                         />
                     ) : null}
                 </div>
-                <Button text='Сохранить' fontSize='1.3125rem' />
+                <Button
+                    text='Сохранить'
+                    fontSize='1.3125rem'
+                    // disabled={
+                    //     !(
+                    //         card.cardNumber &&
+                    //         card.expiryDate &&
+                    //         card.cardName &&
+                    //         card.cvc
+                    //     )
+                    // }
+                />
             </form>
         </div>
     );

@@ -8,7 +8,7 @@ import {
 import { default as cardReducer, cardOperations } from './card';
 import { default as routeReducer, routeOperations } from './route';
 import {
-    default as registraionReducer,
+    default as registrationReducer,
     registraionOperations,
 } from './registration';
 import { default as orderReducer } from './order';
@@ -26,7 +26,7 @@ const reducer = combineReducers({
     card: cardReducer,
     addressList: addressListReducer,
     route: routeReducer,
-    registraion: registraionReducer,
+    registration: registrationReducer,
     order: orderReducer,
 });
 

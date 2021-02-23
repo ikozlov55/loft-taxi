@@ -33,6 +33,15 @@ describe('auth reducer', () => {
         expect(state).toEqual(loggedInState);
     });
 
+    test('handles AUTHORIZE action', () => {
+        const state = reducer(
+            errorState,
+            operations.authorize('zzz@mail.ru', '123456')
+        );
+
+        expect(state).toEqual(initialState);
+    });
+
     test('handles AUTHORIZE_FAILED action', () => {
         const state = reducer(
             undefined,
@@ -43,7 +52,7 @@ describe('auth reducer', () => {
     });
 
     test('returns initial state on LOGOUT action', () => {
-        const state = reducer(undefined, operations.logout);
+        const state = reducer(loggedInState, operations.logout());
 
         expect(state).toEqual(initialState);
     });

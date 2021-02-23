@@ -28,7 +28,7 @@ describe('route reducer', () => {
     });
 
     test('returns initial state on DELETE_ROUTE action', () => {
-        const state = reducer(undefined, operations.clearRoute());
+        const state = reducer(testState, operations.clearRoute());
 
         expect(state).toEqual(initialState);
     });

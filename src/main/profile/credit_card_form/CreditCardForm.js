@@ -1,9 +1,28 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import './CreditCardForm.css';
 
+const cardNameRegisterOptions = {
+    required: 'Введите имя владельца карты',
+};
+
+const cardNumberRegisterOptions = {
+    required: 'Введите номер карты',
+};
+
+const expiryDateRegisterOptions = {
+    required: 'Введите дату',
+};
+
+const cvcRegisterOptions = {
+    required: 'Введите cvc',
+};
+
 const CreditCardForm = (props) => {
+    const { register, errors } = useForm();
+
     return (
         <div className='CreditCardForm'>
             <div className='CreditCardForm__row'>
@@ -13,7 +32,9 @@ const CreditCardForm = (props) => {
                     fullWidth
                     onChange={props.onChange}
                     value={props.cardName || ''}
-                    required
+                    inputRef={register(cardNameRegisterOptions)}
+                    error={!!errors.cardName}
+                    helperText={errors.cardName?.message}
                 />
             </div>
             <div className='CreditCardForm__row'>
@@ -23,7 +44,9 @@ const CreditCardForm = (props) => {
                     fullWidth
                     onChange={props.onChange}
                     value={props.cardNumber || ''}
-                    required
+                    inputRef={register(cardNumberRegisterOptions)}
+                    error={!!errors.cardNumber}
+                    helperText={errors.cardNumber?.message}
                 />
             </div>
             <div className='CreditCardForm__row'>
@@ -32,14 +55,18 @@ const CreditCardForm = (props) => {
                     label='MM/YY'
                     onChange={props.onChange}
                     value={props.expiryDate || ''}
-                    required
+                    inputRef={register(expiryDateRegisterOptions)}
+                    error={!!errors.expiryDate}
+                    helperText={errors.expiryDate?.message}
                 />
                 <TextField
                     name='cvc'
                     label='CVC'
                     onChange={props.onChange}
                     value={props.cvc || ''}
-                    required
+                    inputRef={register(cvcRegisterOptions)}
+                    error={!!errors.cvc}
+                    helperText={errors.cvc?.message}
                 />
             </div>
         </div>

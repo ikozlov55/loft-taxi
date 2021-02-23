@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Input from '../../common/input/Input';
 import Button from '../../common/button/Button';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { authSelectors } from '../../redux/modules/auth';
 import './LoginForm.css';
+
+const emailRegisterOptions = {
+    required: 'Введите Email',
+};
+
+const passwordRegisterOptions = {
+    required: 'Введите пароль',
+};
 
 const LoginForm = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const authError = useSelector(authSelectors.selectError);
+    const { register, handleSubmit, errors } = useForm();
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    function onSubmit() {
         props.onSubmit(email, password);
     }
 
@@ -18,23 +30,28 @@ const LoginForm = (props) => {
             <h2 className='form__header' data-testid='LoginForm:header'>
                 Войти
             </h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
-                    type='email'
-                    id='email'
+                    type='text'
+                    name='email'
                     placeholder='mail@mail.ru'
                     label='Email'
                     onChange={setEmail}
-                ></Input>
+                    register={register(emailRegisterOptions)}
+                    error={errors.email?.message}
+                />
                 <Input
                     type='password'
-                    id='password'
+                    name='password'
                     placeholder='*************'
                     label='Пароль'
                     onChange={setPassword}
-                ></Input>
-                <a className='form__link--gray'>Забыли пароль?</a>
-                <Button text='Войти'></Button>
+                    register={register(passwordRegisterOptions)}
+                    error={errors.password?.message}
+                />
+                <button className='form__link--gray'>Забыли пароль?</button>
+                <h3 className='form__error'>{authError}</h3>
+                <Button text='Войти' />
             </form>
             <div className='form__text-block'>
                 Новый пользователь?
