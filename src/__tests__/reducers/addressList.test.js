@@ -1,5 +1,4 @@
 import reducer, {
-    addressListTypes as types,
     addressListOperations as operations,
 } from '../../redux/modules/addressList';
 import * as mockData from '../../services/mockData';

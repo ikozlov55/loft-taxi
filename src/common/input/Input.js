@@ -13,7 +13,7 @@ const Input = (props) => {
                 {props.label}
             </label>
             <input
-                type={props.type}
+                type={props.type || 'text'}
                 id={props.name}
                 name={props.name}
                 value={props.value}
@@ -29,7 +29,7 @@ const Input = (props) => {
 
 Input.propTypes = {
     name: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['text', 'email', 'password']).isRequired,
+    type: PropTypes.oneOf(['text', 'email', 'password']),
     label: PropTypes.string,
     value: PropTypes.string,
     placeholder: PropTypes.string,

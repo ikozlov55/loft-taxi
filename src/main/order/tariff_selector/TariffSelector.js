@@ -14,7 +14,7 @@ const TariffSelector = (props) => {
                     price={tariff.price}
                     logo={tariff.logo}
                     isSelected={tariff.id === props.selectedTariffId}
-                    onClick={props.handleCardClick}
+                    onClick={props.onCardClick}
                 />
             ))}
         </ul>
@@ -24,7 +24,7 @@ const TariffSelector = (props) => {
 TariffCard.propTypes = {
     tariffs: PropTypes.array,
     selectedTariffId: PropTypes.string,
-    handleCardClick: PropTypes.func,
+    onCardClick: PropTypes.func,
 };
 
 export default TariffSelector;

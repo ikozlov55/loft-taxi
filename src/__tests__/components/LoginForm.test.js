@@ -1,24 +1,16 @@
 import React from 'react';
 import LoginForm from '../../public/login/LoginForm';
-import { render, screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
+import { render } from '../../services/utils';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 
 describe('LoginForm', () => {
-    test('fires onRegisterClick callback on register link click', () => {
-        const onRegisterClick = jest.fn();
-        render(<LoginForm onRegisterClick={onRegisterClick}></LoginForm>);
-
-        const registerLink = screen.getByTestId('LoginForm:register-link');
-        userEvent.click(registerLink);
-
-        expect(onRegisterClick).toHaveBeenCalled();
-    });
-
-    test('fires login callback with email and password on submit', () => {
-        const login = jest.fn();
+    test('fires onSubmit callback with email and password on login button click', async () => {
+        const onSubmit = jest.fn();
         const email = 'admin@mail.ru';
         const password = '123456';
-        render(<LoginForm login={login}></LoginForm>);
+        render(<LoginForm onSubmit={onSubmit}></LoginForm>);
         const [emailInput, passwordInput] = screen.getAllByTestId(
             'Input:input'
         );
@@ -28,6 +20,29 @@ describe('LoginForm', () => {
         userEvent.type(passwordInput, password);
         userEvent.click(loginButton);
 
-        expect(login).toHaveBeenCalledWith(email, password);
+        await waitFor(() =>
+            expect(onSubmit).toHaveBeenCalledWith(email, password)
+        );
+    });
+
+    test('shows error if email and password inputs are empty on login button click', async () => {
+        const onSubmit = jest.fn();
+        const email = '';
+        const password = '';
+        render(<LoginForm onSubmit={onSubmit}></LoginForm>);
+        const [emailInput, passwordInput] = screen.getAllByTestId(
+            'Input:input'
+        );
+        const loginButton = screen.getByTestId('Button:button');
+
+        userEvent.type(emailInput, email);
+        userEvent.type(passwordInput, password);
+        userEvent.click(loginButton);
+
+        await waitFor(() => {
+            expect(screen.getByText('Введите Email')).toBeVisible();
+            expect(screen.getByText('Введите пароль')).toBeVisible();
+            expect(onSubmit).not.toHaveBeenCalled();
+        });
     });
 });

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { authSelectors } from '../../redux/modules/auth';
 import Input from '../../common/input/Input';
 import Button from '../../common/button/Button';
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { authSelectors } from '../../redux/modules/auth';
+import PropTypes from 'prop-types';
 import './LoginForm.css';
 
 const emailRegisterOptions = {
@@ -65,6 +66,10 @@ const LoginForm = (props) => {
             </div>
         </div>
     );
+};
+
+LoginForm.propTypes = {
+    onSubmit: PropTypes.func,
 };
 
 export default LoginForm;

@@ -8,7 +8,7 @@ export function maskCardNumber(event) {
     let newValue = input.value;
 
     if (newValue.length > oldValue.length) {
-        const chars = newValue.replaceAll(' ', '');
+        const chars = newValue.replace(/ /g, '');
         if (chars.length > 16) {
             return oldValue;
         }

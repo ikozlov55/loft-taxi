@@ -10,12 +10,12 @@ describe('Input component', () => {
         ['email', 'emailInput', 'Email', '', 'mail@mail.ru'],
         ['password', 'passwordInput', 'Пароль', '', ''],
     ])(
-        'renders %s input with id: %s, label: %s, value: %s and placeholder: %s',
-        (type, id, label, value, placeholder) => {
+        'renders %s input with name: %s, label: %s, value: %s and placeholder: %s',
+        (type, name, label, value, placeholder) => {
             render(
                 <Input
                     type={type}
-                    id={id}
+                    name={name}
                     label={label}
                     value={value}
                     placeholder={placeholder}
@@ -24,15 +24,30 @@ describe('Input component', () => {
             const inputLabel = screen.getByTestId('Input:label');
             const input = screen.getByTestId('Input:input');
 
-            expect(inputLabel).toHaveAttribute('for', id);
+            expect(inputLabel).toHaveAttribute('for', name);
             expect(inputLabel).toHaveTextContent(label);
-
             expect(input).toHaveAttribute('type', type);
-            expect(input).toHaveAttribute('id', id);
+            expect(input).toHaveAttribute('id', name);
+            expect(input).toHaveAttribute('name', name);
             expect(input).toHaveAttribute('value', value);
             expect(input).toHaveAttribute('placeholder', placeholder);
         }
     );
+
+    test('has text type by defaullt', () => {
+        render(<Input name='login'></Input>);
+
+        const input = screen.getByTestId('Input:input');
+
+        expect(input).toHaveAttribute('type', 'text');
+    });
+
+    test('can show error', () => {
+        const error = 'Ошибка авторизации!';
+        render(<Input name='login' error={error}></Input>);
+
+        expect(screen.getByText(error)).toBeVisible();
+    });
 
     test('fires onChange callback when eddited', () => {
         const text = 'Lorem ipsum dolor sit amet consectetur';
@@ -40,7 +55,7 @@ describe('Input component', () => {
         function onChange(value) {
             expectedText = value;
         }
-        render(<Input type='text' id='textInput' onChange={onChange}></Input>);
+        render(<Input type='text' name='login' onChange={onChange}></Input>);
         const input = screen.getByTestId('Input:input');
 
         userEvent.type(input, text);

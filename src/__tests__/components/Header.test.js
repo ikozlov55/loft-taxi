@@ -1,37 +1,26 @@
 import React from 'react';
 import Header from '../../main/header/Header';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { render } from '../../services/utils';
 import '@testing-library/jest-dom';
 
 describe('Header component', () => {
-    test('renders with active button from prop', () => {
-        render(<Header activeButton='profile'></Header>);
-        const profileButton = screen.getByTestId('Header:profile-button');
+    test('renders properly without crash', () => {
+        render(<Header />);
 
-        expect(profileButton).toHaveClass('Header__menu-button--active');
+        expect(screen.getByText('Карта')).toBeVisible();
+        expect(screen.getByText('Профиль')).toBeVisible();
+        expect(screen.getByText('Выйти')).toBeVisible();
     });
 
-    test.each(['profile', 'order'])(
-        'fires onButtonClick callback with clicked button name',
-        (buttonName) => {
-            const onButtonClick = jest.fn();
-            render(<Header onButtonClick={onButtonClick}></Header>);
-            const button = screen.getByTestId(`Header:${buttonName}-button`);
+    test('fires onLogout callback on logout button click', () => {
+        const onLogout = jest.fn();
+        render(<Header onLogout={onLogout} />);
 
-            userEvent.click(button);
-
-            expect(onButtonClick).toBeCalledWith(buttonName);
-        }
-    );
-
-    test('fires logout callback on logout button click', () => {
-        const logout = jest.fn();
-        render(<Header logout={logout}></Header>);
-        const logoutButton = screen.getByTestId('Header:logout-button');
-
+        const logoutButton = screen.getByText('Выйти');
         userEvent.click(logoutButton);
 
-        expect(logout).toBeCalled();
+        expect(onLogout).toHaveBeenCalledTimes(1);
     });
 });

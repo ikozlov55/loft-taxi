@@ -3,19 +3,12 @@ import { AuthContextProvider, AuthContext } from '../../AuthContext';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import API from '../../services/API';
 
-const mockLogin = jest.fn();
 const email = 'mail@mail.ru';
 const password = '123456';
 
-jest.mock('../services/API', () => ({
-    login(email, password) {
-        return new Promise((resolve, reject) => {
-            mockLogin(email, password);
-            resolve();
-        });
-    },
-}));
+jest.mock('../../services/API');
 
 const ChildComponent = () => {
     const context = useContext(AuthContext);
@@ -59,6 +52,7 @@ describe('AuthContextProvider component', () => {
     });
 
     test('provides children with context with login method, that calls API.login', async () => {
+        const spy = jest.spyOn(API, 'auth');
         render(
             <AuthContextProvider>
                 <ChildComponent></ChildComponent>
@@ -70,7 +64,7 @@ describe('AuthContextProvider component', () => {
         await waitFor(() => {
             expect(screen.getByText('Login clicked!')).toBeInTheDocument();
         });
-        expect(mockLogin).toBeCalledWith(email, password);
+        expect(spy).toBeCalledWith(email, password);
     });
 
     test('provides children with context with logout method', () => {
