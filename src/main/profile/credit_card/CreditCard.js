@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const CreditCard = (props) => {
     return (
-        <div className='CreditCard'>
+        <div className='CreditCard' data-testid='CreditCard'>
             <div className='CreditCard__row'>
                 <img src={LogoIcon} alt=''></img>
                 <p className='CreditCard__expires'>{props.expiryDate}</p>

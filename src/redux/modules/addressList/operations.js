@@ -20,4 +20,4 @@ function* addressListSaga() {
     yield takeLatest(types.GET_ADDRESS_LIST, fetchAddressList);
 }
 
-export { getAddressList, setAddressList, addressListSaga };
+export { getAddressList, setAddressList, addressListSaga, fetchAddressList };

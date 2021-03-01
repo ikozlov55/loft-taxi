@@ -11,7 +11,11 @@ function renderStartAdornment(props) {
     if (props.icon) {
         return (
             <InputAdornment position='start'>
-                <img src={props.icon} alt=''></img>
+                <img
+                    src={props.icon}
+                    alt=''
+                    data-testid='AddressSelect:start-img'
+                ></img>
             </InputAdornment>
         );
     } else {
@@ -29,6 +33,7 @@ function renderEndAdornment(props) {
                     alt=''
                     onClick={props.onCrossClick}
                     data-select={props.id}
+                    data-testid='AddressSelect:end-img'
                 ></img>
             </InputAdornment>
         );
@@ -61,6 +66,7 @@ const AddressSelect = (props) => {
                 value={props.value}
                 startAdornment={renderStartAdornment(props)}
                 endAdornment={renderEndAdornment(props)}
+                data-testid='AddressSelect:Select'
             >
                 {renderMenuItems(props)}
             </Select>

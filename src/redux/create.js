@@ -5,18 +5,21 @@ import localStorageMiddleware from './middleware/localStorageMiddleware';
 import localStorageService from '../services/localStorageService';
 import reducer, { rootSaga } from './modules';
 
-const sagaMiddleware = createSagaMiddleware();
+export default function configureStore(initialState = null) {
+    const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [sagaMiddleware, localStorageMiddleware];
+    const middlewares = [sagaMiddleware, localStorageMiddleware];
 
-const preloadedState = localStorageService.getState() || undefined;
+    const preloadedState =
+        initialState || localStorageService.getState() || undefined;
 
-const store = createStore(
-    reducer,
-    preloadedState,
-    composeWithDevTools(applyMiddleware(...middlewares))
-);
+    const store = createStore(
+        reducer,
+        preloadedState,
+        composeWithDevTools(applyMiddleware(...middlewares))
+    );
 
-sagaMiddleware.run(rootSaga);
+    sagaMiddleware.run(rootSaga);
 
-export default store;
+    return store;
+}

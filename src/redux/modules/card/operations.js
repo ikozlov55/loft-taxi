@@ -38,4 +38,12 @@ function* paymentSaga() {
     yield takeLatest(types.ADD_CARD, postCard);
 }
 
-export { getCard, addCard, saveCard, deleteCard, paymentSaga };
+export {
+    getCard,
+    addCard,
+    saveCard,
+    deleteCard,
+    paymentSaga,
+    fetchCard,
+    postCard,
+};

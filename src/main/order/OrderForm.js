@@ -80,7 +80,7 @@ const OrderForm = (props) => {
                     />
                     <TariffSelector
                         tariffs={tariffs}
-                        handleCardClick={handleCardClick}
+                        onCardClick={handleCardClick}
                         selectedTariffId={tariffId}
                     />
                     <Button

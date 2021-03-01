@@ -1,17 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { authOperations } from '../../redux/modules/auth';
+import PropTypes from 'prop-types';
 import './Header.css';
 import logo from './header_logo.png';
 
 const Header = (props) => {
-    const dispatch = useDispatch();
-
-    function handleLogout() {
-        dispatch(authOperations.logout());
-    }
-
     return (
         <header className='Header'>
             <img src={logo} alt='Loft Taxi' className='Header__logo' />
@@ -31,7 +24,7 @@ const Header = (props) => {
                         to='/main/profile'
                         className='Header__menu-button'
                         activeClassName='Header__menu-button--active'
-                        data-testid='Header:order-button'
+                        data-testid='Header:profile-button'
                     >
                         Профиль
                     </NavLink>
@@ -40,7 +33,7 @@ const Header = (props) => {
                     <NavLink
                         to='/'
                         className='Header__menu-button'
-                        onClick={handleLogout}
+                        onClick={props.onLogout}
                         data-testid='Header:logout-button'
                     >
                         Выйти
@@ -49,6 +42,10 @@ const Header = (props) => {
             </ul>
         </header>
     );
+};
+
+Header.propTypes = {
+    onLogout: PropTypes.func,
 };
 
 export default Header;

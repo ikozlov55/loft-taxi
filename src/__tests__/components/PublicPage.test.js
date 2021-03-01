@@ -1,42 +1,45 @@
 import React from 'react';
 import PublicPage from '../../public/PublicPage';
-import { render, screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
+import { render } from '../../services/utils';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
+import API from '../../services/API';
+import { registrationError, authorizationError } from '../../services/mockData';
+
+jest.mock('../../services/API');
 
 describe('PublicPage', () => {
-    beforeEach(() => {
-        render(<PublicPage></PublicPage>);
-    });
-
     test('renders with login form by default', () => {
-        const loginFormHeader = screen.queryByTestId('LoginForm:header');
+        render(<PublicPage />);
 
-        expect(loginFormHeader).not.toBeNull();
+        expect(screen.getByTestId('LoginForm:header')).toBeVisible();
     });
 
     test('renders registration form on register link click', () => {
-        const registerLink = screen.getByTestId('LoginForm:register-link');
+        render(<PublicPage />);
 
-        userEvent.click(registerLink);
+        userEvent.click(screen.getByTestId('LoginForm:register-link'));
         const registrationFormHeader = screen.queryByTestId(
             'RegistrationForm:header'
         );
 
-        expect(registrationFormHeader).not.toBeNull();
+        expect(registrationFormHeader).toBeVisible();
     });
 
-    test('renders login form on login link click', () => {
-        const registerLink = screen.getByTestId('LoginForm:register-link');
-        userEvent.click(registerLink);
-        const loginLink = screen.getByTestId('RegistrationForm:login-link');
-        userEvent.click(loginLink);
-        const loginFormHeader = screen.queryByTestId('LoginForm:header');
+    test('renders login form on login link click', async () => {
+        render(<PublicPage />);
 
-        expect(loginFormHeader).not.toBeNull();
+        userEvent.click(screen.getByTestId('LoginForm:register-link'));
+        userEvent.click(screen.getByTestId('RegistrationForm:login-link'));
+
+        expect(screen.queryByTestId('LoginForm:header')).toBeVisible();
     });
 
-    test('renders login form on successful registration', async () => {
-        const email = 'admin@mail.ru';
+    test('calls API register method and shows error message on fail', async () => {
+        render(<PublicPage />);
+        const spy = jest.spyOn(API, 'register');
+        const email = 'fail@mail.ru';
         const name = 'Владимир Владимиров';
         const password = '123456';
 
@@ -46,13 +49,34 @@ describe('PublicPage', () => {
             'Input:input'
         );
         const registerButton = screen.getByTestId('Button:button');
-
         userEvent.type(emailInput, email);
         userEvent.type(nameInput, name);
         userEvent.type(passwordInput, password);
         userEvent.click(registerButton);
 
-        const loginFormHeader = await screen.findByTestId('LoginForm:header');
-        expect(loginFormHeader).not.toBeNull();
+        await waitFor(() => {
+            expect(spy).toHaveBeenCalledWith(email, name, password);
+            expect(screen.getByText(registrationError)).toBeVisible();
+        });
+    });
+
+    test('calls API login method and shows error message on fail', async () => {
+        render(<PublicPage />);
+        const spy = jest.spyOn(API, 'auth');
+        const email = 'fail@mail.ru';
+        const password = '123456';
+
+        const [emailInput, passwordInput] = screen.getAllByTestId(
+            'Input:input'
+        );
+        const registerButton = screen.getByTestId('Button:button');
+        userEvent.type(emailInput, email);
+        userEvent.type(passwordInput, password);
+        userEvent.click(registerButton);
+
+        await waitFor(() => {
+            expect(spy).toHaveBeenCalledWith(email, password);
+            expect(screen.getByText(authorizationError)).toBeVisible();
+        });
     });
 });

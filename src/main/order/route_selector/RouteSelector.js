@@ -12,7 +12,7 @@ import addressFromIcon from './address_from_icon.svg';
 import addressToIcon from './address_to_icon.svg';
 
 const RouteSelector = (props) => {
-    const addressList = useSelector(addressListSelectors.selectAddresses);
+    const addressList = useSelector(addressListSelectors.selectAddresses) || [];
     const dispatch = useDispatch();
     const inputToSetter = {
         'address-from': props.setSelectedFrom,
@@ -35,7 +35,7 @@ const RouteSelector = (props) => {
     }
 
     return (
-        <div className='RouteSelector'>
+        <div className='RouteSelector' data-testid='RouteSelector'>
             <AddressSelect
                 id='address-from'
                 labelText='Откуда'
@@ -65,8 +65,8 @@ const RouteSelector = (props) => {
 RouteSelector.propTypes = {
     selectedFrom: PropTypes.string,
     selectedTo: PropTypes.string,
-    setSelectedFrom: PropTypes.func,
-    setSelectedTo: PropTypes.func,
+    setSelectedFrom: PropTypes.func.isRequired,
+    setSelectedTo: PropTypes.func.isRequired,
 };
 
 export default RouteSelector;

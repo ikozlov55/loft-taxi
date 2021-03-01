@@ -1,13 +1,23 @@
-import reducer, { login, logout } from '../../redux/modules/auth';
+import reducer, {
+    authOperations as operations,
+} from '../../redux/modules/auth';
 
 const initialState = {
     isLoggedIn: false,
     token: null,
+    error: null,
 };
 
-const testState = {
+const loggedInState = {
     isLoggedIn: true,
-    token: 'testState token',
+    token: 'loggedInState token',
+    error: null,
+};
+
+const errorState = {
+    isLoggedIn: false,
+    token: null,
+    error: 'Ошибка Авторизации!',
 };
 
 describe('auth reducer', () => {
@@ -18,14 +28,31 @@ describe('auth reducer', () => {
     });
 
     test('handles LOGIN action', () => {
-        const token = 'authorization token';
-        const state = reducer(undefined, login(token));
+        const state = reducer(undefined, operations.login(loggedInState.token));
 
-        expect(state).toEqual({ isLoggedIn: true, token: token });
+        expect(state).toEqual(loggedInState);
+    });
+
+    test('handles AUTHORIZE action', () => {
+        const state = reducer(
+            errorState,
+            operations.authorize('zzz@mail.ru', '123456')
+        );
+
+        expect(state).toEqual(initialState);
+    });
+
+    test('handles AUTHORIZE_FAILED action', () => {
+        const state = reducer(
+            undefined,
+            operations.failAuthorize(errorState.error)
+        );
+
+        expect(state).toEqual(errorState);
     });
 
     test('returns initial state on LOGOUT action', () => {
-        const state = reducer(testState, logout());
+        const state = reducer(loggedInState, operations.logout());
 
         expect(state).toEqual(initialState);
     });

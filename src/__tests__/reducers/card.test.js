@@ -1,7 +1,9 @@
-import reducer, { saveCard, deleteCard } from '../../redux/modules/card';
+import reducer, {
+    cardOperations as operations,
+} from '../../redux/modules/card';
 
 const initialState = {
-    isCardAdded: false,
+    isAdded: false,
     data: {
         cardNumber: null,
         expiryDate: null,
@@ -11,7 +13,7 @@ const initialState = {
 };
 
 const testState = {
-    isCardAdded: true,
+    isAdded: true,
     data: {
         cardNumber: '1111 1111 1111 1111',
         expiryDate: '12/25',
@@ -28,24 +30,13 @@ describe('card reducer', () => {
     });
 
     test('handles SAVE_CARD action', () => {
-        const cardNumber = '2222 2222 2222 2222';
-        const expiryDate = '12/26';
-        const cardName = 'VALDIMIR VLADIMIROV';
-        const cvc = '321';
+        const state = reducer(undefined, operations.saveCard(testState.data));
 
-        const state = reducer(
-            undefined,
-            saveCard(cardNumber, expiryDate, cardName, cvc)
-        );
-
-        expect(state).toEqual({
-            isCardAdded: true,
-            data: { cardNumber, expiryDate, cardName, cvc },
-        });
+        expect(state).toEqual(testState);
     });
 
     test('returns initial state on DELETE_CARD action', () => {
-        const state = reducer(testState, deleteCard());
+        const state = reducer(testState, operations.deleteCard());
 
         expect(state).toEqual(initialState);
     });

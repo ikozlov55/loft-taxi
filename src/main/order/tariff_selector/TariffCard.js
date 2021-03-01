@@ -9,6 +9,7 @@ const TariffCard = (props) => {
                 props.isSelected ? 'TariffCard--active' : ''
             }`}
             data-id={props.id}
+            data-testid='TariffCard'
             onClick={props.onClick}
         >
             <p className='TariffCard__name'>{props.name}</p>
